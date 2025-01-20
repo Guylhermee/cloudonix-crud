@@ -1,0 +1,46 @@
+<div *ngIf="products.length > 0; else noData">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products" (click)="viewDetails(product)" class="clickable-row">
+        <td>{{ product.id }}</td>
+        <td>{{ product.sku }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.cost | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noData>
+  <p>No products found.</p>
+</ng-template>
+
+<!-- Modal for product details -->
+<div *ngIf="selectedProduct" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+    <h2>{{ selectedProduct.name }}</h2>
+    <p><strong>SKU:</strong> {{ selectedProduct.sku }}</p>
+    <p><strong>Price:</strong> {{ selectedProduct.cost | currency }}</p>
+    <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
+
+    <!-- Profile section -->
+    <div *ngIf="selectedProduct.profile" class="profile-section">
+      <strong>Profile:</strong>
+      <ul>
+        <li *ngFor="let key of objectKeys(selectedProduct.profile)">
+          <strong>{{ key }}:</strong> {{ selectedProduct.profile[key] }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
