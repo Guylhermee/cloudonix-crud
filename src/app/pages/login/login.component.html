@@ -1,0 +1,14 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()">
+      <input
+        type="text"
+        placeholder="Enter authorization key"
+        [(ngModel)]="authKey"
+        name="authKey"
+        required
+      />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  
