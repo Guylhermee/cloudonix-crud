@@ -1,0 +1,76 @@
+.product-editor {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .product-editor h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .product-editor form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-editor label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .product-editor input,
+  .product-editor select,
+  .product-editor textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .product-editor input[type="number"],
+  .product-editor input[type="checkbox"] {
+    width: auto;
+  }
+  
+  .product-editor input[readonly] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+  }
+  
+  .product-editor textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .product-editor .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .product-editor button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .product-editor button:hover {
+    background-color: #45a049;
+  }
+  
+  .product-editor button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  

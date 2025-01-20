@@ -1,0 +1,62 @@
+<div class="product-editor">
+  <h2>{{ productToEdit ? 'Edit Product' : 'Create New Product' }}</h2>
+
+  <form (ngSubmit)="saveProduct()">
+    <!-- Name Field -->
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" [(ngModel)]="name" name="name" required />
+    </div>
+
+    <div>
+      <label for="sku">SKU:</label>
+      <input 
+        id="sku" 
+        [(ngModel)]="sku" 
+        name="sku" 
+        required 
+        [readonly]="productToEdit" 
+      />
+    </div>
+    
+
+    <!-- Description Field -->
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="description" name="description" required></textarea>
+    </div>
+
+    <!-- Cost Field -->
+    <div>
+      <label for="cost">Cost:</label>
+      <input id="cost" [(ngModel)]="cost" name="cost" type="number" step="0.01" min="0" required />
+    </div>
+
+    <!-- Type Dropdown -->
+    <div>
+      <label for="type">Type:</label>
+      <select id="type" [(ngModel)]="type" name="type">
+        <option value="furniture">Furniture</option>
+        <option value="equipment">Equipment</option>
+        <option value="stationary">Stationary</option>
+        <option value="part">Part</option>
+      </select>
+    </div>
+
+    <!-- Available Checkbox -->
+    <div>
+      <label for="available">Available:</label>
+      <input id="available" [(ngModel)]="available" name="available" type="checkbox" />
+    </div>
+
+    <!-- Backlog Field -->
+    <div>
+      <label for="backlog">Backlog:</label>
+      <input id="backlog" [(ngModel)]="backlog" name="backlog" type="number" />
+    </div>
+
+    <div class="actions">
+      <button type="submit">{{ productToEdit ? 'Save Changes' : 'Save Product' }}</button>
+    </div>
+  </form>
+</div>
