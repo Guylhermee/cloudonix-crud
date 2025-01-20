@@ -6,41 +6,28 @@
   
   .product-editor h2 {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    color: #333;
   }
   
   .product-editor form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
   }
   
   .product-editor label {
-    font-size: 14px;
     font-weight: bold;
-    margin-bottom: 8px;
+    color: #555;
   }
   
   .product-editor input,
-  .product-editor select,
-  .product-editor textarea {
+  .product-editor textarea,
+  .product-editor select {
     width: 100%;
     padding: 10px;
-    margin-bottom: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-  
-  .product-editor input[type="number"],
-  .product-editor input[type="checkbox"] {
-    width: auto;
-  }
-  
-  .product-editor input[readonly] {
-    background-color: #f0f0f0;
-    cursor: not-allowed;
+    font-size: 1rem;
   }
   
   .product-editor textarea {
@@ -56,21 +43,49 @@
   
   .product-editor button {
     padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
     border: none;
     border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease-in-out;
   }
   
-  .product-editor button:hover {
-    background-color: #45a049;
+  .product-editor button[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
   }
   
-  .product-editor button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+  .product-editor button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  .product-editor button[type="button"] {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 10px;
+  }
+  
+  .product-editor button[type="button"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .product-editor .custom-properties div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .product-editor .custom-properties input {
+    flex: 1;
+  }
+  
+  .product-editor .custom-properties button {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .product-editor .custom-properties button:hover {
+    background-color: #c82333;
   }
   

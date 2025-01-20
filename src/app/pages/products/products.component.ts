@@ -37,30 +37,24 @@ export class ProductsComponent implements OnInit {
     this.isCreatingProduct = true;
   }
 
-  // Fechar modal de criação
   closeCreateProductModal(): void {
     this.isCreatingProduct = false;
   }
 
-  // Function to handle product click
   viewDetails(product: any): void {
     this.selectedProduct = product;
-    this.isEditing = false;  // Reseta a edição quando um produto é selecionado
+    this.isEditing = false; 
   }
 
-  // Function to close the modal
   closeModal(): void {
     this.selectedProduct = null;
-    this.showDeleteConfirm = false; // Ensure delete modal is hidden when closing
-    this.isEditing = false;  // Reset editing state
+    this.showDeleteConfirm = false; 
   }
 
-  // Show confirmation for deletion
   confirmDelete(productId: number): void {
     this.showDeleteConfirm = true;
   }
 
-  // Function to delete the product
   deleteProduct(): void {
     const authKey = localStorage.getItem('authKey');
     if (authKey && this.selectedProduct) {
@@ -80,18 +74,15 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  // Function to cancel deletion
   cancelDelete(): void {
     this.showDeleteConfirm = false;
   }
 
-  // Function to get the object keys (for displaying the dynamic profile)
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
 
-  // Function to trigger the edit state
   editProduct(): void {
-    this.isEditing = true;  // Set to true to show the product edit form
+    this.isEditing = true; 
   }
 }

@@ -1,7 +1,5 @@
-<!-- Button to create a new product -->
 <button (click)="openCreateProductModal()">Create Product</button>
 
-<!-- Modal for creating product -->
 <div *ngIf="isCreatingProduct" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -36,7 +34,6 @@
   <p>No products found.</p>
 </ng-template>
 
-<!-- Modal for product details -->
 <div *ngIf="selectedProduct" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -47,7 +44,6 @@
     <p><strong>Price:</strong> {{ selectedProduct.cost | currency }}</p>
     <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
 
-    <!-- Profile section -->
     <div *ngIf="selectedProduct.profile" class="profile-section">
       <strong>Profile:</strong>
       <ul>
@@ -57,13 +53,11 @@
       </ul>
     </div>
 
-    <!-- Buttons for Edit and Delete -->
     <div class="modal-actions">
       <button (click)="editProduct()">Edit</button>
       <button (click)="confirmDelete(selectedProduct.id)">Delete</button>
     </div>
 
-    <!-- Use the ProductCreateComponent for editing or creating products -->
     <app-product-editor *ngIf="isEditing" [productToEdit]="selectedProduct"></app-product-editor>
   </div>
 </div>

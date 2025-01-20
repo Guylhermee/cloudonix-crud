@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http'; // Importação do HttpClient
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -10,20 +10,21 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, CommonModule]
 })
 export class ProductCreateComponent implements OnInit {
-  @Input() productToEdit: any; // Para receber o produto a ser editado
+  @Input() productToEdit: any;
   name = '';
   sku = '';
   description = '';
   cost: number | null = null;
-  type = 'furniture'; // Valor padrão
-  available = true;   // Valor padrão
+  type = 'furniture';
+  available = true;
   backlog: number | null = null;
+  
+  customProperties: { key: string, value: string }[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     if (this.productToEdit) {
-      // Preenche os campos com os dados do produto
       this.name = this.productToEdit.name;
       this.sku = this.productToEdit.sku;
       this.description = this.productToEdit.description;
@@ -31,6 +32,10 @@ export class ProductCreateComponent implements OnInit {
       this.type = this.productToEdit.profile?.type || 'furniture';
       this.available = this.productToEdit.profile?.available || true;
       this.backlog = this.productToEdit.profile?.backlog || null;
+
+      if (this.productToEdit.profile?.customProperties) {
+        this.customProperties = this.productToEdit.profile.customProperties;
+      }
     }
   }
 
@@ -38,8 +43,34 @@ export class ProductCreateComponent implements OnInit {
     return Object.keys(obj);
   }
 
-  // Salvar o produto (criar ou editar)
+  addCustomProperty() {
+    this.customProperties.push({ key: '', value: '' });
+  }
+
+  removeCustomProperty(index: number) {
+    this.customProperties.splice(index, 1);
+  }
+
+  validateForm(): boolean {
+    if (!this.name.trim() || !this.sku.trim() || !this.description.trim() || this.cost === null) {
+      alert('Please fill in all required fields.');
+      return false;
+    }
+
+    for (const property of this.customProperties) {
+      if (!property.key.trim() || !property.value.trim()) {
+        alert('Please fill in all custom properties fields.');
+        return false;
+      }
+    }
+    return true;
+  }
+
   saveProduct() {
+    if (!this.validateForm()) {
+      return;
+    }
+
     const productData = {
       name: this.name,
       sku: this.sku,
@@ -49,18 +80,17 @@ export class ProductCreateComponent implements OnInit {
         type: this.type,
         available: this.available,
         backlog: this.backlog,
+        customProperties: this.customProperties
       }
     };
 
     if (this.productToEdit) {
       this.editProduct(this.productToEdit.id, productData);
     } else {
-      // Lógica para criar um novo produto (POST)
       this.createProduct(productData);
     }
   }
 
-  // Função para criar um novo produto
   createProduct(productData: any) {
     const authKey = localStorage.getItem('authKey');
     if (!authKey) {
@@ -76,24 +106,25 @@ export class ProductCreateComponent implements OnInit {
     }).subscribe(
       (response: any) => {
         console.log('Product created:', response);
+        alert('Product created successfully.');
+        window.location.reload();
       },
       (error) => {
         console.error('Error creating product:', error);
+        alert('Error creating product.');
       }
     );
   }
 
-  // Função para editar um produto
   editProduct(productId: number, productData: any) {
     const authKey = localStorage.getItem('authKey');
     if (!authKey) {
       console.error('Authorization key is missing.');
       return;
     }
-  
-    // Remover o SKU do objeto productData
+
     delete productData.sku;
-  
+
     this.http.patch(`http://rest-items.research.cloudonix.io/items/${productId}`, productData, {
       headers: {
         Authorization: `Bearer ${authKey}`,
@@ -102,9 +133,12 @@ export class ProductCreateComponent implements OnInit {
     }).subscribe(
       (response: any) => {
         console.log('Product updated:', response);
+        alert('Product updated successfully.');
+        window.location.reload(); 
       },
       (error) => {
         console.error('Error updating product:', error);
+        alert('Error updating product.');
       }
     );
   }
